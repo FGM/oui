@@ -1,0 +1,13 @@
+.gallery {
+  display: block;
+}
+
+.gallery .portrait {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  background-position: 0 0;
+  background-size: 200px 200px;
+  background-repeat: no-repeat;
+}
+
