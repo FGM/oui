@@ -1,44 +1,41 @@
 /**
- * @param {int} size
- *   The size of the square image, in px.
- * @param {int} increment
- *   The zoom increment, in px.
- * @param {int} delay
- *   The zoom/unzoom delay, in ms.
+ * @param {number} [zoom]
+ *   The zoom factor. 1.0 means no zoom. Default: 1.2.
+ * @param {number} [delay]
+ *   The zoom/unzoom delay, in ms. Default: 300.
  *
  * @constructor
  */
-function Zoomer(size, increment, delay) {
+function Zoomer(zoom, delay) {
 
-  var _size = size;
-  var _increment = increment;
-  var _delay = delay;
+  var _delay = (delay === undefined ? 300 : delay);
+  var _zoom = (zoom === undefined ? 1.2 : zoom);
+  var _size;
 
-  var zoomin = function (event) {
-    var jTarget = jQuery(event.currentTarget);
+  /**
+   * The interpolation parameters for zoom-in.
+   */
+  var tween_in;
 
-    var tween = {
-      'background-size': '+=' + 2 * _increment + 'px',
-      'background-position-x': '-' + _increment + 'px',
-      'background-position-y': '-' + _increment + 'px'
-    };
-
-    jTarget.animate(tween, this, _delay);
-    console.log('zooming', tween);
-  };
-
-  var zoomout = function (event) {
-    var jTarget = jQuery(event.currentTarget);
-    var tween = {
-      'background-size': _size + 'px',
-      'background-position-x': '0',
-      'background-position-y': '0'
-    };
-    jTarget.animate(tween, _delay);
-    console.log('unzooming', tween);
-  };
+  /**
+   * The interpolation parameters for zoom-out
+   */
+  var tween_out;
 
   this.setup = function (selector) {
-    jQuery(selector).hover(zoomin, zoomout);
+    var elements = jQuery(selector);
+
+    _size = elements.width();
+    tween_in = {
+      'background-size': _size * _zoom + 'px'
+    };
+    tween_out = {
+      'background-size': _size + 'px'
+    };
+
+    elements.css("background-size", _size + "px " + _size + "px").hover(
+      function (event) { jQuery(event.currentTarget).animate(tween_in, _delay); },
+      function (event) { jQuery(event.currentTarget).animate(tween_out, _delay); }
+    );
   };
 }
