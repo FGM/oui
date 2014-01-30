@@ -1,23 +1,14 @@
 <html>
   <head>
     <link rel="stylesheet" href="zoomer.css" />
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="zoomer.js"></script>
     </head>
 
   <body>
     <div class="gallery">
-      <div class="portrait" style="background-image: url(face11.jpg)"></div>
-      <div class="portrait" style="background-image: url(face21.jpg)"></div>
-      <div class="portrait" style="background-image: url(face31.jpg)"></div>
-      <div class="portrait" style="background-image: url(face41.jpg)"></div>
+      <div class="clipper"><div class="portrait"><img src="face11.jpg" /></div></div>
+      <div class="clipper"><div class="portrait"><img src="face21.jpg" /></div></div>
+      <div class="clipper"><div class="portrait"><img src="face31.jpg" /></div></div>
+      <div class="clipper"><div class="portrait"><img src="face41.jpg" /></div></div>
       </div>
     </body>
-
-  <script>
-    jQuery(document).ready(function () {
-      var z = new Zoomer(1.1, 500);
-      z.setup(".gallery .portrait");
-    });
-    </script>
   </html>

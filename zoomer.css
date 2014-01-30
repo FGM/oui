@@ -1,7 +1,66 @@
+/**
+ * CSS Transitions do not currently (2014-01) work on image properties, so we
+ * apply them to an image container, force the image to fill its container, and
+ * place the container in another container which will clip it to fixed size.
+ *
+ * Aspect ratio trick:
+ * http://www.mademyday.de/css-height-equals-width-with-pure-css.html
+ */
+
+.gallery {
+}
+
+.gallery .clipper {
+  /* Basic layout: four columns with fluid gutters */
+  float: left;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  position: relative;
+  width: 24%;
+
+  /* Zoom: clip div.portrait */
+  overflow: hidden;
+}
+
 .gallery .portrait {
-  background-position: center;
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 200px;
-  width: 200px;
+  /* Aspect ratio trick: position content */
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  /* Zoom: transition */
+  width: 100%;
+  -webkit-transition-property: left, top, width;
+  -moz-transition-property: left, top, width;
+  -ms-transition-property: left, top, width;
+  -o-transition-property: left, top, width;
+  transition-property: left, top, width;
+
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -ms-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+
+}
+
+/* Aspect ratio trick: set aspect ratio */
+.gallery .clipper:before{
+  content: "";
+  display: block;
+  padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+
+/* Zoom: scale and translate */
+.gallery .portrait:hover {
+  width: 110%;
+  top: -5%;
+  left: -5%;
+}
+
+/* Basic layout: image fills div.portrait */
+.gallery .portrait img {
+  width: 100%;
 }
