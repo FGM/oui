@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /**
  * CSS Transitions do not currently (2014-01) work on image properties, so we
  * apply them to an image container, force the image to fill its container, and
